@@ -1,0 +1,25 @@
+- name: --game
+  type: str
+  required: true
+  help: Specify a game you wanna target
+  choices: 
+    - genshin
+    - honkai3rd
+    - starrail
+
+- name: --wine
+  type: str
+  help: select or download wine
+
+- name: --dxvk
+  type: str
+  help: select or download dxvk
+
+- name: --fpsunlock
+  type: int
+  help: target for fps unlocking
+  
+- name: --debug
+  type: bool
+  default: false
+  help: Log extra information for debugging
