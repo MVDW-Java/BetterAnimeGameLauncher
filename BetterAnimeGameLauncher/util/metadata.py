@@ -7,7 +7,7 @@ import json
 
 component_resources = {
     "wine": "https://www.enthix.net/BAGL/wine.json",
-    #"dxvk": "https://www.enthix.net/BAGL/dxvk.json",
+    "dxvk": "https://www.enthix.net/BAGL/dxvk.json",
 }
 
 
