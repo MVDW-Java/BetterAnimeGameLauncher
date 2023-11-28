@@ -3,10 +3,12 @@ from BetterAnimeGameLauncher import *
 from BetterAnimeGameLauncher.util.cache import saveCache
 from BetterAnimeGameLauncher.util.config import saveConfig
 
+import os
 import sys
 import requests
 import tarfile
 import io
+import shutil
 
 
 def initWine(val):
@@ -76,21 +78,38 @@ def checkWine(wine):
 
 
 def downloadWine(wine):
-
     wine_type, wine_ver = wineVer(wine)
     wine_url = None
 
     for key in METADATA["wine"]["DATA"][wine_type]["VERSIONS"]:
         if wine_ver == key["VERSION"]:
             wine_url = key["URL"]
-    if wine_url == None:
+    if wine_url is None:
         print(f"error: the wine url does not exist")
         sys.exit(1)
 
-    if not os.path.exists(PATH_DATA_DIR):
-        os.makedirs(PATH_DATA_DIR)
+    if not os.path.exists(PATH_DATA_WINE_DIR):
+        os.makedirs(PATH_DATA_WINE_DIR)
 
     response = requests.get(wine_url, stream=True)
-    file = tarfile.open(fileobj=response.raw, mode="r|xz")
-    file.extractall(PATH_DATA_DIR)
 
+    # Create a temporary directory to extract the tar file
+    temp_dir = os.path.join(PATH_DATA_WINE_DIR, 'temp_extracted')
+    os.makedirs(temp_dir, exist_ok=True)
+
+    try:
+        file = tarfile.open(fileobj=response.raw, mode="r|xz")
+        file.extractall(temp_dir)
+        
+        # Get the list of items in the temporary directory
+        items = os.listdir(temp_dir)
+        if len(items) != 1 or not os.path.isdir(os.path.join(temp_dir, items[0])):
+            print("error: Unexpected structure in the tar file.")
+            sys.exit(1)
+        
+        # Rename the first folder to the wine name
+        source_path = os.path.join(temp_dir, items[0])
+        destination_path = os.path.join(PATH_DATA_WINE_DIR, wine)
+        os.rename(source_path, destination_path)
+    finally:
+        shutil.rmtree(temp_dir, ignore_errors=True)
