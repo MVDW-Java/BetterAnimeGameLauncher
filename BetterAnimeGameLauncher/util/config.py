@@ -12,7 +12,7 @@ def getConfig():
                 
 def saveConfig():
     with open(PATH_CONFIG_FILE, 'w') as file:
-        yaml.dump(CONFIG, file, default_flow_style=False)
+        yaml.dump(CONFIG, file)
     
 def createConfig():
     if not os.path.exists(PATH_CONFIG_DIR):
