@@ -10,7 +10,6 @@ import tarfile
 import io
 import shutil
 
-
 def initWine(val):
     # Check if given wine type/version exist
     if(val != None):
@@ -99,13 +98,25 @@ def downloadWine(wine):
         os.makedirs(PATH_DATA_WINE_DIR)
 
     response = requests.get(wine_url, stream=True)
+    file_type = None
+
+    # Check file format
+    if wine_url.endswith('.tar.xz'):
+        file_type = "xz"
+    elif wine_url.endswith('.tar.gz'):
+        file_type = "gz"
+
+    # exit when the file type is invalid
+    if file_type == None:
+        print("error: Recieved an unexpected archive type when trying to download wine.")
+        sys.exit(1)
 
     # Create a temporary directory to extract the tar file
     temp_dir = os.path.join(PATH_DATA_WINE_DIR, 'temp_extracted')
     os.makedirs(temp_dir, exist_ok=True)
 
     try:
-        file = tarfile.open(fileobj=response.raw, mode="r|xz")
+        file = tarfile.open(fileobj=response.raw, mode=f"r|{file_type}")
         file.extractall(temp_dir)
         
         # Get the list of items in the temporary directory

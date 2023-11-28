@@ -93,13 +93,27 @@ def downloadDXVK(dxvk):
         os.makedirs(PATH_DATA_DXVK_DIR)
 
     response = requests.get(dxvk_url, stream=True)
+    file_type = None
+
+    # Check file format
+    if dxvk_url.endswith('.tar.xz'):
+        file_type = "xz"
+    elif dxvk_url.endswith('.tar.gz'):
+        file_type = "gz"
+
+    # exit when the file type is invalid
+    if file_type == None:
+        print("error: Recieved an unexpected archive type when trying to download DXVK.")
+        sys.exit(1)
+
+
 
     # Create a temporary directory to extract the tar file
     temp_dir = os.path.join(PATH_DATA_DXVK_DIR, 'temp_extracted')
     os.makedirs(temp_dir, exist_ok=True)
 
     try:
-        file = tarfile.open(fileobj=response.raw, mode="r|xz")
+        file = tarfile.open(fileobj=response.raw, mode=f"r|{file_type}")
         file.extractall(temp_dir)
         
         # Get the list of items in the temporary directory
