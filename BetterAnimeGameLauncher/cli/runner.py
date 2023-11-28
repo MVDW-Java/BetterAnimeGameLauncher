@@ -11,12 +11,6 @@ def runner(args):
     getCache()
     getConfig()
 
-    # TEST
-    CACHE.update({"TEST": 34435543})
-
-    saveCache()
-
-    
     for att, val in vars(args).items():
         match att:
             case "wine":
