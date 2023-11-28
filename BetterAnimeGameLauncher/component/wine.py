@@ -20,10 +20,6 @@ def initWine(val):
     if "INSTALLED" not in CACHE:
         CACHE["INSTALLED"] = {};
 
-    # Check if installed type exist in the cache 
-    if "INSTALLED" not in CACHE:
-        CACHE["INSTALLED"] = {}
-
     # Set wine version into config
     if "WINE" not in CONFIG:
         if(val == None):
