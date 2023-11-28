@@ -20,19 +20,25 @@ def initWine(val):
     if "INSTALLED" not in CACHE:
         CACHE["INSTALLED"] = {};
 
+    # Check if installed type exist in the cache 
+    if "INSTALLED" not in CACHE:
+        CACHE["INSTALLED"] = {}
+
     # Set wine version into config
     if "WINE" not in CONFIG:
         if(val == None):
             CONFIG["WINE"] = METADATA["wine"]["DEFAULT"]
         else:
             CONFIG["WINE"] = val; 
-    # Check if installed wine versions is in the cache 
+
+    # Check if wine installation exist in the cache 
     if "WINE" not in CACHE["INSTALLED"]:
         CACHE["INSTALLED"]["WINE"] = []
 
 
     if CONFIG["WINE"] not in CACHE["INSTALLED"]["WINE"]:
         downloadWine(CONFIG["WINE"])
+        CACHE["INSTALLED"]["WINE"].append(CONFIG["WINE"])
 
     # Save changed data
     saveCache()
