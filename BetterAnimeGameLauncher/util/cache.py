@@ -15,7 +15,7 @@ def getCache():
         
     if os.path.exists(PATH_CACHE_FILE):
         with open(PATH_CACHE_FILE, 'r') as file:
-            CACHE = json.load(file)
+            CACHE.update(json.load(file))
             CACHE_LOADED = True
 
 def saveCache():
