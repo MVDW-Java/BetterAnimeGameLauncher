@@ -40,6 +40,11 @@ def initWine(val):
         downloadWine(CONFIG["WINE"])
         CACHE["INSTALLED"]["WINE"].append(CONFIG["WINE"])
 
+    # boot wine for the first time
+    wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
+    wine_exec = "WINEPREFIX=\"" + PATH_DATA_PREFIX_DIR + "\" " + wine_bin + " \"wineboot\""
+    os.system(wine_exec)
+
     # Save changed data
     saveCache()
     saveConfig()
