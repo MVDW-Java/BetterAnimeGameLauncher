@@ -18,7 +18,7 @@ def launchGenshin():
     game_version = api_responce["data"]["game"]["latest"]["version"]
     game_executable = api_responce["data"]["game"]["latest"]["entry"]
 
-    if(CONFIG["installed_genshin_ver"] != game_version):
+    if (CONFIG["installed_genshin_ver"] != game_version) or not os.path.exists(PATH_DATA_GAME_GENSHIN_DIR):
         installGenshin(api_responce)
 
     #game_path = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, game_executable)
@@ -33,6 +33,10 @@ def launchGenshin():
     
 # Install game
 def installGenshin(api_responce):
+
+    # create game directory
+    if not os.path.exists(PATH_DATA_GAME_GENSHIN_DIR):
+        os.makedirs(PATH_DATA_GAME_GENSHIN_DIR)
 
     # Default values
     list_voicepacks = api_responce["data"]["game"]["latest"]["voice_packs"]
