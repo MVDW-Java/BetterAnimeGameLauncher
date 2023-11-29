@@ -1,4 +1,5 @@
 import os
+import platform
 
 APP_NAME = "BetterAnimeGameLauncher"
 APP_NAME_SHORT = "BAGL"
@@ -22,3 +23,5 @@ PATH_DATA_DXVK_DIR = os.path.join(PATH_DATA_DIR, "dxvk")
 PATH_DATA_GAME_DIR = os.path.join(PATH_DATA_DIR, "game")
 PATH_DATA_PREFIX_DIR = os.path.join(PATH_DATA_DIR, "prefix")
 PATH_MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
+PLATFORM_NAME = platform.system()
