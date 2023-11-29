@@ -30,15 +30,18 @@ def initWine(val):
     if "WINE" not in CACHE["INSTALLED"]:
         CACHE["INSTALLED"]["WINE"] = []
 
+    wine_path = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"])
 
     if CONFIG["WINE"] not in CACHE["INSTALLED"]["WINE"]:
-        downloadWine(CONFIG["WINE"])
         CACHE["INSTALLED"]["WINE"].append(CONFIG["WINE"])
+
+    if not os.path.exists(wine_path):
+        downloadWine(CONFIG["WINE"])
 
     # create wine prefix
     if not os.path.exists(PATH_DATA_PREFIX_DIR):
         print("create prefix")
-        wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
+        wine_bin = os.path.join(wine_path, "bin", "wine")
         wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" {wine_bin} \"wineboot\""
         os.system(wine_exec)
 

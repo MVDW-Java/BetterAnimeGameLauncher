@@ -32,12 +32,16 @@ def initDXVK(val):
         CACHE["INSTALLED"]["DXVK"] = []
 
 
+    dxvk_path = os.path.join(PATH_DATA_DXVK_DIR, CONFIG["DXVK"])
+
     if CONFIG["DXVK"] not in CACHE["INSTALLED"]["DXVK"]:
-        downloadDXVK(CONFIG["DXVK"])
         CACHE["INSTALLED"]["DXVK"].append(CONFIG["DXVK"])
 
-    dxvk_x32 = os.path.join(PATH_DATA_DXVK_DIR, CONFIG["DXVK"], "x32")
-    dxvk_x64 = os.path.join(PATH_DATA_DXVK_DIR, CONFIG["DXVK"], "x64")
+    if not os.path.exists(dxvk_path):
+        downloadDXVK(CONFIG["DXVK"])
+
+    dxvk_x32 = os.path.join(dxvk_path, "x32")
+    dxvk_x64 = os.path.join(dxvk_path, "x64")
 
     win_32 = os.path.join(PATH_DATA_PREFIX_DIR, "drive_c", "windows", "system32")
     win_64 = os.path.join(PATH_DATA_PREFIX_DIR, "drive_c", "windows", "syswow64")
