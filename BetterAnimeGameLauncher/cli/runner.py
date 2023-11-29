@@ -7,6 +7,7 @@ from BetterAnimeGameLauncher.util.config import getConfig
 from BetterAnimeGameLauncher.component.wine import initWine
 from BetterAnimeGameLauncher.component.dxvk import initDXVK
 
+from BetterAnimeGameLauncher.game.genshin import launchGenshin
 
 def runner(args):
     # Get required data from server, cache and config
@@ -21,3 +22,4 @@ def runner(args):
             case "dxvk":
                 initDXVK(val);
             
+    launchGenshin()
