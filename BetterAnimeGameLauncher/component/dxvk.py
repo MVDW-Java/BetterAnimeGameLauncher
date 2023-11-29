@@ -9,6 +9,7 @@ import requests
 import tarfile
 import io
 import shutil
+import hashlib
 
 def initDXVK(val):
     # Check if given DXVK type/version exist
@@ -35,8 +36,40 @@ def initDXVK(val):
         downloadDXVK(CONFIG["DXVK"])
         CACHE["INSTALLED"]["DXVK"].append(CONFIG["DXVK"])
 
-    # TODO: Inject DXVK into wine prefix
-   
+    dxvk_x32 = os.path.join(PATH_DATA_DXVK_DIR, CONFIG["DXVK"], "x32")
+    dxvk_x64 = os.path.join(PATH_DATA_DXVK_DIR, CONFIG["DXVK"], "x64")
+
+    win_32 = os.path.join(PATH_DATA_PREFIX_DIR, "drive_c", "windows", "system32")
+    win_64 = os.path.join(PATH_DATA_PREFIX_DIR, "drive_c", "windows", "syswow64")
+
+    # check if DXVK is installed
+    for file in os.listdir(dxvk_x32):
+        # DXVK x32 -> syswow64
+        dxvk32_filepath = os.path.join(dxvk_x32, file);
+        dxvk32_hash = hashlib.md5(open(dxvk32_filepath,'rb').read()).hexdigest()
+
+        win64_filepath = os.path.join(win_64, file);
+        win64_hash =  hashlib.md5(open(win64_filepath,'rb').read()).hexdigest()
+        
+        # DXVK x64 -> system32
+        dxvk64_filepath = os.path.join(dxvk_x64, file);
+        dxvk64_hash = hashlib.md5(open(dxvk64_filepath,'rb').read()).hexdigest()
+
+        win32_filepath = os.path.join(win_32, file);
+        win32_hash =  hashlib.md5(open(win32_filepath,'rb').read()).hexdigest()
+
+        # replace x32 files
+        if(win64_hash != dxvk32_hash):
+            print("replace x32 files")
+            os.remove(win64_filepath)
+            shutil.copyfile(dxvk32_filepath, win64_filepath)
+
+        # replace x64 files
+        if(win32_hash != dxvk64_hash):
+            print("replace x64 files")
+            os.remove(win32_filepath)
+            shutil.copyfile(dxvk64_filepath, win32_filepath)
+
 
     # Save changed data
     saveCache()
@@ -128,3 +161,4 @@ def downloadDXVK(dxvk):
         os.rename(source_path, destination_path)
     finally:
         shutil.rmtree(temp_dir, ignore_errors=True)
+        
