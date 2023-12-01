@@ -7,6 +7,8 @@ import base64
 import requests
 import json
 import hashlib
+import zipfile
+
 
 # Lauch game
 def launchGenshin():
@@ -79,7 +81,7 @@ def installGenshin(api_responce):
             game_basefilename = os.path.splitext(filename)[0]
             location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
 
-            if not (os.path.exists(location)) and False : #or (hashlib.md5(open(location,'rb').read()).hexdigest() != segment["md5"])
+            if not (os.path.exists(location)): #or (hashlib.md5(open(location,'rb').read()).hexdigest() != segment["md5"])
                 download_obj = {}
                 download_obj["url"] = segment["path"]
                 download_obj["md5"] = segment["md5"]
@@ -95,7 +97,7 @@ def installGenshin(api_responce):
         filename = os.path.basename(voice["path"])
         location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
 
-        if(voice["language"] in language_list) and False:  #and (not (os.path.exists(location)) or (hashlib.md5(open(location,'rb').read()).hexdigest() != voice["md5"]))
+        if(voice["language"] in language_list) and not os.path.exists(location):  #and (not (os.path.exists(location)) or (hashlib.md5(open(location,'rb').read()).hexdigest() != voice["md5"]))
             download_obj = {}
 
             download_obj["url"] = voice["path"]
@@ -128,6 +130,11 @@ def installGenshin(api_responce):
                         if not chunk:
                             break
                         outfile.write(chunk)
+                os.remove(part_location)
+    print("Extract game...")
+    with zipfile.ZipFile(location, 'r') as zip_ref:
+        zip_ref.extractall(PATH_DATA_GAME_GENSHIN_DIR)
+
 
 
     print(game_basefilename)
