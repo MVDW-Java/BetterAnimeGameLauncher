@@ -14,6 +14,12 @@ import zipfile
 
 # Lauch game
 def launchGenshin():
+    # check config
+    if CONFIG["installed_genshin_ver"] is None:
+        CONFIG["installed_genshin_ver"] = "0.0.0"
+    if CONFIG["lang"] is None:
+        CONFIG["lang"] = ["en-us"]
+
     api = base64.b64decode("aHR0cHM6Ly9zZGstb3Mtc3RhdGljLmhveW92ZXJzZS5jb20vaGs0ZV9nbG9iYWwvbWRrL2xhdW5jaGVyL2FwaS9yZXNvdXJjZT9rZXk9Z2NTdGdhcmgmbGF1bmNoZXJfaWQ9MTA=")
     api_responce = json.loads(requests.get(api).content)
 
@@ -40,11 +46,6 @@ def launchGenshin():
 # Install game
 def installGenshin(api_responce):
 
-    # local information
-    installed_version = CONFIG["installed_genshin_ver"] = "3.1.0"
-    language_list = CONFIG["lang"] = ["en-us"]
-
-
     # base game information
     base_game_version = api_responce["data"]["game"]["latest"]["version"]
     base_game_url = api_responce["data"]["game"]["latest"]["path"]
@@ -62,9 +63,9 @@ def installGenshin(api_responce):
         os.makedirs(PATH_DATA_GAME_GENSHIN_DIR)
 
     # check if it can just be upgraded instead redownloading the full game
-    if(installed_version != None):
+    if(CONFIG["installed_genshin_ver"] != "0.0.0"):
         for diff in api_responce["data"]["game"]["diffs"]:
-            if(diff["version"] == installed_version):
+            if(diff["version"] == CONFIG["installed_genshin_ver"]):
                 filename = os.path.basename(segment["path"])
                 game_basefilename = os.path.splitext(filename)[0]
 
@@ -102,7 +103,7 @@ def installGenshin(api_responce):
         filename = os.path.basename(voice["path"])
         location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
 
-        if(voice["language"] in language_list) and not os.path.exists(location):  #and (not (os.path.exists(location)) or (hashlib.md5(open(location,'rb').read()).hexdigest() != voice["md5"]))
+        if(voice["language"] in CONFIG["lang"]) and not os.path.exists(location):  #and (not (os.path.exists(location)) or (hashlib.md5(open(location,'rb').read()).hexdigest() != voice["md5"]))
             download_obj = {}
 
             download_obj["url"] = voice["path"]

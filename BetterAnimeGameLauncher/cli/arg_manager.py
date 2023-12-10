@@ -1,12 +1,14 @@
 from BetterAnimeGameLauncher import *
 
+from BetterAnimeGameLauncher.util.localResources import resourcePath 
+
 import argparse
 import yaml
 import os
 
 def argumentManager():
 
-    args_filepath = os.path.join(PATH_MAIN_DIR, 'cli', 'args.yaml')
+    args_filepath = resourcePath(os.path.join("cli", "args.yaml"))
     
     type_mapping = {
         'str': str,
