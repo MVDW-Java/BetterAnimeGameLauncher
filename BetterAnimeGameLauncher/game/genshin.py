@@ -1,6 +1,8 @@
 from BetterAnimeGameLauncher import *
 
 from BetterAnimeGameLauncher.util.download import download_file
+from BetterAnimeGameLauncher.util.cache import saveCache
+from BetterAnimeGameLauncher.util.config import saveConfig
 
 import os
 import base64
@@ -15,25 +17,24 @@ def launchGenshin():
     api = base64.b64decode("aHR0cHM6Ly9zZGstb3Mtc3RhdGljLmhveW92ZXJzZS5jb20vaGs0ZV9nbG9iYWwvbWRrL2xhdW5jaGVyL2FwaS9yZXNvdXJjZT9rZXk9Z2NTdGdhcmgmbGF1bmNoZXJfaWQ9MTA=")
     api_responce = json.loads(requests.get(api).content)
 
-    # test options
-    CONFIG["lang"] = ["en-us"]
-    CONFIG["installed_genshin_ver"] = "3.1.0"
-
     # basic game info
     game_version = api_responce["data"]["game"]["latest"]["version"]
     game_executable = api_responce["data"]["game"]["latest"]["entry"]
 
     if (CONFIG["installed_genshin_ver"] != game_version) or not os.path.exists(PATH_DATA_GAME_GENSHIN_DIR):
+        print("Installing Genshin Impact...")
         installGenshin(api_responce)
+        saveCache()
+        saveConfig()
 
-    #game_path = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, game_executable)
+    game_path = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, game_executable)
 
-    #wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
-    #wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" WINEDLLOVERRIDES=\"d3d11,d3d10core,dxgi,d3d9=n\" {wine_bin} {game_path}" #
+    wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
+    wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" WINEDLLOVERRIDES=\"d3d11,d3d10core,dxgi,d3d9=n\" {wine_bin} {game_path}" #
 
 
-    #os.chdir(PATH_DATA_GAME_GENSHIN_DIR)
-    #os.system(wine_exec)
+    os.chdir(PATH_DATA_GAME_GENSHIN_DIR)
+    os.system(wine_exec)
     
     
 # Install game
@@ -55,6 +56,10 @@ def installGenshin(api_responce):
 
     print("Checking current base game installation status... (This may take some time)")
 
+
+    # check if game directory exist
+    if not os.path.exists(PATH_DATA_GAME_GENSHIN_DIR):
+        os.makedirs(PATH_DATA_GAME_GENSHIN_DIR)
 
     # check if it can just be upgraded instead redownloading the full game
     if(installed_version != None):
@@ -111,7 +116,7 @@ def installGenshin(api_responce):
         
         filename = os.path.basename(download["url"])
         location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
-
+        download_file(download["url"], location)
         print("downloading: ", filename)
         
 
@@ -135,7 +140,7 @@ def installGenshin(api_responce):
     with zipfile.ZipFile(location, 'r') as zip_ref:
         zip_ref.extractall(PATH_DATA_GAME_GENSHIN_DIR)
 
-
+    CONFIG["installed_genshin_ver"] = base_game_version
 
     print(game_basefilename)
     print(getZipParts(location))
@@ -158,17 +163,3 @@ def getZipParts(zip_file):
             break
 
     return files
-
-
-
-# Local test to check if wine and dxvk is working fine
-#def experimentalLaunchGenshin():
-#    game_path = f"/home/mvdw/.var/app/moe.launcher.an-anime-game-launcher/data/anime-game-launcher/Genshin\ Impact/{game_executable}"
-
-#    wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
-#    #wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" {wine_bin} {game_path}"
-#    wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" WINEDLLOVERRIDES=\"d3d11,d3d10core,dxgi,d3d9=n\" {wine_bin} {game_path}" #
-
-    #TODO: make chdir work so it can the game in its own directory(for the DumpFile from zfbrowser)
-    #os.chdir()
-#    os.system(wine_exec)
