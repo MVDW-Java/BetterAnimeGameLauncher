@@ -6,6 +6,7 @@
     - genshin
     - honkai3rd
     - starrail
+    - test
 
 - name: --wine
   type: str

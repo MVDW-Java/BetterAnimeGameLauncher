@@ -9,6 +9,7 @@ from BetterAnimeGameLauncher.component.dxvk import initDXVK
 
 from BetterAnimeGameLauncher.game.genshin import launchGenshin
 from BetterAnimeGameLauncher.game.starrail import launchHSR
+from BetterAnimeGameLauncher.game.test import launchTest
 
 def runner(args):
     args_list = vars(args)
@@ -31,3 +32,5 @@ def runner(args):
         case "starrail":
             print("start HSR...")
             launchHSR()
+        case "test":
+            launchTest()
