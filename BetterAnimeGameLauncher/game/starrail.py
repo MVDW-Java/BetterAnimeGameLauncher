@@ -44,7 +44,7 @@ def launchHSR():
     jadeite_bin = os.path.join(PATH_DATA_JADEITE_DIR, "jadeite.exe")
     wine_bin = os.path.join(PATH_DATA_WINE_DIR, CONFIG["WINE"], "bin", "wine")
     
-    wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" WINEDLLOVERRIDES=\"d3d11,d3d10core,dxgi,d3d9=n\" {wine_bin} {jadeite_bin} {game_path}" #
+    wine_exec = f"WINEPREFIX=\"{PATH_DATA_PREFIX_DIR}\" DXVK_HUD=\"fps,frametimes,gpuload,devinfo\" WINEDLLOVERRIDES=\"d3d11,d3d10core,dxgi,d3d9=n\" {wine_bin} {jadeite_bin} {game_path}" #
 
 
     os.chdir(PATH_DATA_GAME_STARRAIL_DIR)
