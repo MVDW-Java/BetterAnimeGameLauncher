@@ -11,22 +11,20 @@ from BetterAnimeGameLauncher.game.genshin import launchGenshin
 from BetterAnimeGameLauncher.game.starrail import launchHSR
 
 def runner(args):
+    args_list = vars(args)
+
     # Get required data from server, cache and config
     getComponentMetadata()
     getCache()
     getConfig()
 
     # setup components
-    for att, val in vars(args).items():
-        match att:
-            case "wine":
-                initWine(val);
-            case "dxvk":
-                initDXVK(val);
+    initWine(args_list["wine"])
+    initDXVK(args_list["dxvk"])
     
     
     # launch game
-    match vars(args)["game"]:
+    match args_list["game"]:
         case "genshin":
             print("start genshin...")
             launchGenshin()
