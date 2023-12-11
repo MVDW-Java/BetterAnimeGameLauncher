@@ -7,7 +7,10 @@ A better launcher for anime games under Linux
 > Basic things might not work like starting a game
 
 ## Supported games:
-| Feature | BAGL | AAGL |
+| | BAGL | AAGL |
 | --- | --- | --- |
-| Supported Games | **5+** | 4 [*](## "All in seperate applications")  |
-
+| Honkai Impact 3rd | ✅ | ✅ |
+| Genshin Impact | ✅ | ✅ |
+| Honkai: Star Rail | ✅ | ✅ |
+| Punishing: Gray Raven | ✅ | ✅ |
+| Reverse: 1999 | ✅ | ❌ |
