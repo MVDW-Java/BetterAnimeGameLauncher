@@ -14,3 +14,7 @@ A better launcher for anime games under Linux
 | Honkai: Star Rail | ✅ | ✅ |
 | Punishing: Gray Raven | ✅ | ✅ |
 | Reverse: 1999 | ✅ | ❌ |
+
+## Special thanks to:
+* [mkrsym1](https://codeberg.org/mkrsym1/jadeite) - Providing patches for HI3 and HSR
+* [leemin](https://twitter.com/LeeShanGui) - Making the BAGL logo for this project
