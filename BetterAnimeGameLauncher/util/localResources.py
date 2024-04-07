@@ -9,5 +9,8 @@ def resourcePath(relative):
         # extends the sys module by a flag frozen=True and sets the app 
         # path into variable _MEIPASS'.
         application_path = sys._MEIPASS
+    else:
+        application_path = os.path.join(application_path, "BetterAnimeGameLauncher")
     #print(application_path)
+    
     return os.path.join(application_path, relative)
