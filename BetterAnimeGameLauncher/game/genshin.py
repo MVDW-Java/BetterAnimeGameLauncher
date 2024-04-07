@@ -15,9 +15,10 @@ import zipfile
 # Lauch game
 def launchGenshin():
     # check config
-    if CONFIG["installed_genshin_ver"] is None:
+    print(CONFIG);
+    if "installed_genshin_ver" not in CONFIG:
         CONFIG["installed_genshin_ver"] = "0.0.0"
-    if CONFIG["lang"] is None:
+    if "lang" not in CONFIG :
         CONFIG["lang"] = ["en-us"]
 
     api = base64.b64decode("aHR0cHM6Ly9zZGstb3Mtc3RhdGljLmhveW92ZXJzZS5jb20vaGs0ZV9nbG9iYWwvbWRrL2xhdW5jaGVyL2FwaS9yZXNvdXJjZT9rZXk9Z2NTdGdhcmgmbGF1bmNoZXJfaWQ9MTA=")
