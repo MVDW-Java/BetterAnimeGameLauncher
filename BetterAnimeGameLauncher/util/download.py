@@ -46,7 +46,7 @@ def download_file(url, destination, speed_limit=None):
                     downloaded_size += len(chunk)
                     bar.update(len(chunk))
 
-                    if speed_limit:
+                    if speed_limit is not None:
                         elapsed_time = time.time() - start_time
                         expected_download_time = downloaded_size / speed_limit
                         remaining_time = max(0, expected_download_time - elapsed_time)
