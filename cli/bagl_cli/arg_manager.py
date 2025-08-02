@@ -8,7 +8,7 @@ import os
 
 def argumentManager():
 
-    args_filepath = os.path.abspath(os.path.join("cli", "bagl_cli", "args.yaml"))
+    args_filepath = os.path.join(os.path.dirname(__file__), "args.yaml")
 
     type_mapping = {
         'str': str,
