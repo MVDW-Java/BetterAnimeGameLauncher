@@ -16,7 +16,7 @@ def on_press(state, key):
         pass  # Key was not a char (e.g., it might be a special key)
 
 def download_file(url, destination, speed_limit=None):
-    total_size = 0 
+    total_size = 0
     downloaded_size = 0
     start_time = time.time()
     state = {'paused': False}

@@ -1,6 +1,6 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
-from BetterAnimeGameLauncher.util.localResources import resourcePath 
+from bagl.util.localResources import resourcePath
 
 import argparse
 import yaml
@@ -8,14 +8,14 @@ import os
 
 def argumentManager():
 
-    args_filepath = resourcePath(os.path.join("cli", "args.yaml"))
-    
+    args_filepath = os.path.abspath(os.path.join("cli", "bagl_cli", "args.yaml"))
+
     type_mapping = {
         'str': str,
         'int': int,
         'bool': bool
     }
-    
+
     with open(args_filepath, 'r') as file:
         args = yaml.safe_load(file)
         ap = argparse.ArgumentParser(
@@ -24,7 +24,7 @@ def argumentManager():
             epilog="Need support? Join our Discord server",
             allow_abbrev=True,
         )
-        
+
         for arg_config in args:
             arg_name = arg_config["name"]
             arg_type_str = arg_config.get("type", "str")
@@ -35,4 +35,3 @@ def argumentManager():
             ap.add_argument(arg_name, type=arg_type, **arg_config)
 
     return ap.parse_args()
-

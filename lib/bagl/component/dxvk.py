@@ -1,7 +1,7 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
-from BetterAnimeGameLauncher.util.cache import saveCache
-from BetterAnimeGameLauncher.util.config import saveConfig
+from bagl.util.cache import saveCache
+from bagl.util.config import saveConfig
 
 import os
 import sys
@@ -25,9 +25,9 @@ def initDXVK(val):
         if(val == None):
             CONFIG["DXVK"] = METADATA["dxvk"]["DEFAULT"]
         else:
-            CONFIG["DXVK"] = val; 
+            CONFIG["DXVK"] = val;
 
-    # Check if DXVK installation exist in the cache 
+    # Check if DXVK installation exist in the cache
     if "DXVK" not in CACHE["INSTALLED"]:
         CACHE["INSTALLED"]["DXVK"] = []
 
@@ -54,7 +54,7 @@ def initDXVK(val):
 
         win64_filepath = os.path.join(win_64, file);
         win64_hash =  hashlib.md5(open(win64_filepath,'rb').read()).hexdigest()
-        
+
         # DXVK x64 -> system32
         dxvk64_filepath = os.path.join(dxvk_x64, file);
         dxvk64_hash = hashlib.md5(open(dxvk64_filepath,'rb').read()).hexdigest()
@@ -152,17 +152,16 @@ def downloadDXVK(dxvk):
     try:
         file = tarfile.open(fileobj=response.raw, mode=f"r|{file_type}")
         file.extractall(temp_dir)
-        
+
         # Get the list of items in the temporary directory
         items = os.listdir(temp_dir)
         if len(items) != 1 or not os.path.isdir(os.path.join(temp_dir, items[0])):
             print("error: Unexpected structure in the tar file.")
             sys.exit(1)
-        
+
         # Rename the first folder to the DXVK name
         source_path = os.path.join(temp_dir, items[0])
         destination_path = os.path.join(PATH_DATA_DXVK_DIR, dxvk)
         os.rename(source_path, destination_path)
     finally:
         shutil.rmtree(temp_dir, ignore_errors=True)
-        

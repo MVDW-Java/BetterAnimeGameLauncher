@@ -1,4 +1,4 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
 import os
 import base64
@@ -28,7 +28,7 @@ class Hoyoverse:
         base_game_version = self.api["data"]["game"]["latest"]["version"]
         base_game_url = self.api["data"]["game"]["latest"]["path"]
         voicepack_game_list = self.api["data"]["game"]["latest"]["voice_packs"]
-        
+
         download_list = []
         has_upgrade = False
         game_basefilename = None
@@ -51,7 +51,7 @@ class Hoyoverse:
             CONFIG[game_name_config]["version"] = base_game_version
         if "voice_packs" not in CONFIG[game_name_config]:
             CONFIG[game_name_config]["voice_packs"] = ["en-us"]
-            
+
         # check if it can just be upgraded instead redownloading the full game
         if(len(CACHE[game_name_config]["INSTALLED_VERSIONS"]) > 0):
             for diff in self.api["data"]["game"]["diffs"]:
@@ -97,6 +97,5 @@ class Hoyoverse:
                 download_obj["md5"] = voice["md5"]
 
                 download_list.append(download_obj)
-        
-        return download_list
 
+        return download_list

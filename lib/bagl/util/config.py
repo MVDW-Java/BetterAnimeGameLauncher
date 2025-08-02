@@ -1,4 +1,4 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
 import os
 import ruamel.yaml
@@ -9,11 +9,11 @@ def getConfig():
         createConfig()
     with open(PATH_CONFIG_FILE, 'r') as file:
         CONFIG.update(yaml.load(file))
-                
+
 def saveConfig():
     with open(PATH_CONFIG_FILE, 'w') as file:
         yaml.dump(CONFIG, file)
-    
+
 def createConfig():
     if not os.path.exists(PATH_CONFIG_DIR):
         os.makedirs(PATH_CONFIG_DIR)

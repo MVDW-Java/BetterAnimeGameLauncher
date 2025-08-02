@@ -1,7 +1,7 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
-from BetterAnimeGameLauncher.util.cache import saveCache
-from BetterAnimeGameLauncher.util.config import saveConfig
+from bagl.util.cache import saveCache
+from bagl.util.config import saveConfig
 
 import os
 import sys
@@ -24,9 +24,9 @@ def initWine(val):
         if(val == None):
             CONFIG["WINE"] = METADATA["wine"]["DEFAULT"]
         else:
-            CONFIG["WINE"] = val; 
+            CONFIG["WINE"] = val;
 
-    # Check if wine installation exist in the cache 
+    # Check if wine installation exist in the cache
     if "WINE" not in CACHE["INSTALLED"]:
         CACHE["INSTALLED"]["WINE"] = []
 
@@ -123,13 +123,13 @@ def downloadWine(wine):
     try:
         file = tarfile.open(fileobj=response.raw, mode=f"r|{file_type}")
         file.extractall(temp_dir)
-        
+
         # Get the list of items in the temporary directory
         items = os.listdir(temp_dir)
         if len(items) != 1 or not os.path.isdir(os.path.join(temp_dir, items[0])):
             print("error: Unexpected structure in the tar file.")
             sys.exit(1)
-        
+
         # Rename the first folder to the wine name
         source_path = os.path.join(temp_dir, items[0])
         destination_path = os.path.join(PATH_DATA_WINE_DIR, wine)

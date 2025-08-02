@@ -1,4 +1,4 @@
-from BetterAnimeGameLauncher import *
+from bagl import *
 
 import os
 import json
@@ -12,7 +12,7 @@ def getCache():
 
     if not os.path.exists(PATH_CACHE_DIR):
         os.makedirs(PATH_CACHE_DIR)
-        
+
     if os.path.exists(PATH_CACHE_FILE):
         with open(PATH_CACHE_FILE, 'r') as file:
             CACHE.update(json.load(file))
@@ -21,4 +21,3 @@ def getCache():
 def saveCache():
     with open(PATH_CACHE_FILE, 'w') as file:
         json.dump(CACHE, file)
-
