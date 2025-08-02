@@ -5,15 +5,21 @@ import base64
 import requests
 import json
 
-#Install a Hoyoverse Game
-#   game_id:
-#       - 0 > Honkai Impact 3rd
-#       - 1 > Genshin Impact
-#       - 2 > Honkai Star Rail
-#       - 3 > Zenless Zone Zero
+#? Install a Hoyoverse Game
+#? game_id:
+#*      0: Honkai Impact 3rd Global
+#*      1: Honkai Impact 3rd Taiwan
+#*      2: Honkai Impact 3rd Korea
+#*      3: Honkai Impact 3rd Japan
+#*      4: Genshin Impact
+#*      5: Honkai: Star Rail
+#*      6: Zenless Zone Zero
+#!      7: Punishing Gray Raven
+#!      8: Reverse 1999
+
 class Hoyoverse:
     def __init__(self, game_id):
-        self.api = json.loads(requests.get(base64.b64decode(GAME_MAP[game_id]["API"])).content)
+        self.api = json.loads(requests.get(base64.b64decode(API_URL)).content)
         self.game_id = game_id
 
     def listDownload(self):
@@ -23,11 +29,18 @@ class Hoyoverse:
         game_name_short = GAME_MAP[self.game_id]["NAME_SHORT"]
         game_name_config = GAME_MAP[self.game_id]["NAME_CONFIG"]
         game_data_dir = GAME_MAP[self.game_id]["DATA_DIR"]
-
+        game_id = GAME_MAP[self.game_id]["GAME_ID"]
+        
         # base game information
-        base_game_version = self.api["data"]["game"]["latest"]["version"]
-        base_game_url = self.api["data"]["game"]["latest"]["path"]
-        voicepack_game_list = self.api["data"]["game"]["latest"]["voice_packs"]
+        game_segment = self.api["data"]["game_packages"]
+        for segment in game_segment:
+            if segment["game"]["id"] == game_id:
+                game_segment = segment
+                break
+
+        base_game_version = game_segment["main"]["major"]["version"]
+        base_game_url = self.api["data"]["game"]["latest"]["path"] # mystery
+        voicepack_game_list = game_segment["main"]["major"]["audio_pkgs"]
 
         download_list = []
         has_upgrade = False
@@ -54,7 +67,7 @@ class Hoyoverse:
 
         # check if it can just be upgraded instead redownloading the full game
         if(len(CACHE[game_name_config]["INSTALLED_VERSIONS"]) > 0):
-            for diff in self.api["data"]["game"]["diffs"]:
+            for diff in self.api["data"]["game"]["diffs"]: # mystery
                 if(diff["version"] in CACHE[game_name_config]["INSTALLED_VERSIONS"]):
                     filename = os.path.basename(segment["path"])
                     game_basefilename = os.path.splitext(filename)[0]
@@ -71,7 +84,7 @@ class Hoyoverse:
 
         # when no upgrade avalable
         if not has_upgrade:
-            for segment in self.api["data"]["game"]["latest"]["segments"]:
+            for segment in self.api["data"]["game"]["latest"]["segments"]: # mystery
 
                 filename = os.path.basename(segment["path"])
                 game_basefilename = os.path.splitext(filename)[0]
