@@ -18,5 +18,5 @@ import zipfile
 
 # Lauch game
 def launchTest():
-    game = Hoyoverse(2);
+    game = Hoyoverse(2)
     print(game.listDownload())
