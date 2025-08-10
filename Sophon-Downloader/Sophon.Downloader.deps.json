@@ -1,0 +1,140 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "Sophon.Downloader/1.1.0": {
+        "dependencies": {
+          "Mono.Options": "6.12.0.148",
+          "Sophon": "1.6.0"
+        },
+        "runtime": {
+          "Sophon.Downloader.dll": {}
+        }
+      },
+      "Google.Protobuf/3.30.0": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.30.0.0",
+            "fileVersion": "3.30.0.0"
+          }
+        }
+      },
+      "Hi3Helper.ZstdNet/1.6.4": {
+        "runtime": {
+          "lib/net9.0/Hi3Helper.ZstdNet.dll": {
+            "assemblyVersion": "1.6.4.0",
+            "fileVersion": "1.6.4.0"
+          }
+        }
+      },
+      "Mono.Options/6.12.0.148": {
+        "runtime": {
+          "lib/netstandard2.0/Mono.Options.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.12.0.0"
+          }
+        }
+      },
+      "SharpHDiffPatch.Core/2.3.3": {
+        "dependencies": {
+          "Hi3Helper.ZstdNet": "1.6.4",
+          "ZstdSharp.Port": "0.8.5"
+        },
+        "runtime": {
+          "lib/net9.0/SharpHDiffPatch.Core.dll": {
+            "assemblyVersion": "2.3.3.0",
+            "fileVersion": "2.3.3.0"
+          }
+        }
+      },
+      "System.IO.Hashing/9.0.7": {
+        "runtime": {
+          "lib/net9.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "9.0.0.7",
+            "fileVersion": "9.0.725.31616"
+          }
+        }
+      },
+      "ZstdSharp.Port/0.8.5": {
+        "runtime": {
+          "lib/net9.0/ZstdSharp.dll": {
+            "assemblyVersion": "0.8.5.0",
+            "fileVersion": "0.8.5.0"
+          }
+        }
+      },
+      "Sophon/1.6.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.30.0",
+          "Hi3Helper.ZstdNet": "1.6.4",
+          "SharpHDiffPatch.Core": "2.3.3",
+          "System.IO.Hashing": "9.0.7"
+        },
+        "runtime": {
+          "Sophon.dll": {
+            "assemblyVersion": "1.6.0.0",
+            "fileVersion": "1.6.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sophon.Downloader/1.1.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.30.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZnEI4oZWnHvd+Yz5Gcnx5Q5RQIuzptIzd0fmxAN8f81FYHI0USZqMOrPTkrsd/QEzo9vl2b217v9FqFgHfufQw==",
+      "path": "google.protobuf/3.30.0",
+      "hashPath": "google.protobuf.3.30.0.nupkg.sha512"
+    },
+    "Hi3Helper.ZstdNet/1.6.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/0HO97NquyAeu67BznsPG3Bitb2RweDlRd39Dm0N70pIb6ETjsQI/ysnwGrygxrPwwE25oDNoueAaJfOZTrACg==",
+      "path": "hi3helper.zstdnet/1.6.4",
+      "hashPath": "hi3helper.zstdnet.1.6.4.nupkg.sha512"
+    },
+    "Mono.Options/6.12.0.148": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kf6bdXnP4IzqIp4bJ1YKPI3/PAcOV6qm4mznChJ3c92zHQUXTWJSp0+h+Cfcii0O6m/EgW7KA+tbCiB2al0DDA==",
+      "path": "mono.options/6.12.0.148",
+      "hashPath": "mono.options.6.12.0.148.nupkg.sha512"
+    },
+    "SharpHDiffPatch.Core/2.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KQK+381J3Y2MjxwoG63vvPkDFReN03fp6tCVE6OCctZSgxXhQ0pXCpruX5xyhstx/I6yGPVBejmAyodaSK4tGQ==",
+      "path": "sharphdiffpatch.core/2.3.3",
+      "hashPath": "sharphdiffpatch.core.2.3.3.nupkg.sha512"
+    },
+    "System.IO.Hashing/9.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2sMrwd/AHYipeiOwYcoqD99c4U8F2x7GalonEYxkHUvTLNzE9Pxx2lz8ygS9cOqyDsruYARZAYL5pPVFh/s3lw==",
+      "path": "system.io.hashing/9.0.7",
+      "hashPath": "system.io.hashing.9.0.7.nupkg.sha512"
+    },
+    "ZstdSharp.Port/0.8.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TR4j17WeVSEb3ncgL2NqlXEqcy04I+Kk9CaebNDplUeL8XOgjkZ7fP4Wg4grBdPLIqsV86p2QaXTkZoRMVOsew==",
+      "path": "zstdsharp.port/0.8.5",
+      "hashPath": "zstdsharp.port.0.8.5.nupkg.sha512"
+    },
+    "Sophon/1.6.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
