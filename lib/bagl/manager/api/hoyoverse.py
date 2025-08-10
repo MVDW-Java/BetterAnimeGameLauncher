@@ -1,4 +1,6 @@
 from bagl import *
+from bagl.util.download import *
+
 
 import os
 import base64
@@ -17,10 +19,17 @@ import json
 #!      7: Punishing Gray Raven
 #!      8: Reverse 1999
 
+#TODO
+# add language choice
+
 class Hoyoverse:
     def __init__(self, game_id):
-        self.api = json.loads(requests.get(base64.b64decode(API_URL)).content)
+        if game_id in [4, 5, 6]: self.api_url = SOPHON_API_URL 
+        else: self.api_url = OLD_API_URL
+        
+        self.api = json.loads(requests.get(base64.b64decode(self.api_url)).content)
         self.game_id = game_id
+        self.has_upgrade = False
 
     def listDownload(self):
 
@@ -31,27 +40,30 @@ class Hoyoverse:
         game_data_dir = GAME_MAP[self.game_id]["DATA_DIR"]
         game_id = GAME_MAP[self.game_id]["GAME_ID"]
         
+        # api branches
+        branches = self.api["data"]["game_branches"] if self.api_url == SOPHON_API_URL else self.api["data"]["game_packages"]
+
         # base game information
-        game_segment = self.api["data"]["game_packages"]
-        for segment in game_segment:
-            if segment["game"]["id"] == game_id:
-                game_segment = segment
-                break
+        if self.api_url == SOPHON_API_URL:
+            for branch in branches:
+                if branch["game"]["id"] == game_id:
+                    base_game_version = branch["main"]["tag"]
+                    break
+                
+        if self.api_url == OLD_API_URL:
+            for branch in branches:
+                if branch["game"]["id"] == game_id:
+                    base_game_version = branch["main"]["major"]["version"]
+                    break
 
-        base_game_version = game_segment["main"]["major"]["version"]
-        base_game_url = self.api["data"]["game"]["latest"]["path"] # mystery
-        voicepack_game_list = game_segment["main"]["major"]["audio_pkgs"]
 
-        download_list = []
-        has_upgrade = False
-        game_basefilename = None
 
         # check if game directory exist
         if not os.path.exists(game_data_dir):
             os.makedirs(game_data_dir)
 
 
-        # checking config/cahce data
+        # checking config/cache data
         if game_name_config not in CACHE:
             CACHE[game_name_config] = {}
         if game_name_config not in CONFIG:
@@ -65,50 +77,64 @@ class Hoyoverse:
         if "voice_packs" not in CONFIG[game_name_config]:
             CONFIG[game_name_config]["voice_packs"] = ["en-us"]
 
+
         # check if it can just be upgraded instead redownloading the full game
+        new_version = None
+
         if(len(CACHE[game_name_config]["INSTALLED_VERSIONS"]) > 0):
-            for diff in self.api["data"]["game"]["diffs"]: # mystery
-                if(diff["version"] in CACHE[game_name_config]["INSTALLED_VERSIONS"]):
-                    filename = os.path.basename(segment["path"])
-                    game_basefilename = os.path.splitext(filename)[0]
-
-                    download_obj = {}
-
-                    download_obj["url"] = diff["path"]
-                    download_obj["md5"] = diff["md5"]
-
-                    download_list.append(download_obj)
-                    voicepack_game_list = diff["voice_packs"]
-
-                    has_upgrade = True
+            for branch in branches:
+                if branch["game"]["id"] == game_id:
+                    if self.api_url == SOPHON_API_URL and branch["main"]["tag"] != CONFIG[game_name_config]["version"]:
+                        new_version = branch["main"]["tag"]
+                        self.has_upgrade = True
+                        break
+                    elif self.api_url == OLD_API_URL and branch["main"]["major"]["version"] != CONFIG[game_name_config]["version"]:
+                        new_version = branch["main"]["major"]["version"]
+                        self.has_upgrade = True
+                        break
 
         # when no upgrade avalable
-        if not has_upgrade:
-            for segment in self.api["data"]["game"]["latest"]["segments"]: # mystery
+        if not self.has_upgrade:
+            print(f"Downloading {game_name_short} {base_game_version}...")
+            SophonGameDownloader(
+                game_id=game_id,
+                version=base_game_version,
+                output_dir=game_data_dir
+            )
+            print(f"{game_name_short} {base_game_version} downloaded successfully!")
 
-                filename = os.path.basename(segment["path"])
-                game_basefilename = os.path.splitext(filename)[0]
-                location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
+            print("Downloading voice packs...")
+            for voice_pack in CONFIG[game_name_config]["voice_packs"]:
+                SophonAudioDownloader(
+                    game_id=game_id,
+                    package=voice_pack,
+                    version=base_game_version,
+                    output_dir=game_data_dir
+                )
+            print("Voice packs downloaded successfully!")
 
-                if not (os.path.exists(location)): #or (hashlib.md5(open(location,'rb').read()).hexdigest() != segment["md5"])
-                    download_obj = {}
-                    download_obj["url"] = segment["path"]
-                    download_obj["md5"] = segment["md5"]
+            #? update config/cache
+            
+        # when upgrade is available
+        if self.has_upgrade:
+            print(f"Updating {game_name_short} to {new_version}...")
+            SophonGameUpdater(
+                game_id=game_id,
+                update_from=CONFIG[game_name_config]["version"],
+                update_to=new_version,
+                output_dir=game_data_dir
+            )
+            print(f"{game_name_short} updated to {new_version} successfully!")
 
-                    download_list.append(download_obj)
-
-        # queue voicepacks
-        for voice in voicepack_game_list:
-
-            filename = os.path.basename(voice["path"])
-            location = os.path.join(PATH_DATA_GAME_GENSHIN_DIR, filename)
-
-            if(voice["language"] in CONFIG[game_name_config]["voice_packs"]) and not os.path.exists(location):  #and (not (os.path.exists(location)) or (hashlib.md5(open(location,'rb').read()).hexdigest() != voice["md5"]))
-                download_obj = {}
-
-                download_obj["url"] = voice["path"]
-                download_obj["md5"] = voice["md5"]
-
-                download_list.append(download_obj)
-
-        return download_list
+            # sophon update voice packs
+            print("Updating voice packs...")
+            for voice_pack in CONFIG[game_name_config]["voice_packs"]:
+                SophonAudioUpdater(
+                    game_id=game_id,
+                    package=voice_pack,
+                    version=new_version,
+                    output_dir=game_data_dir
+                )
+            print("Voice packs updated successfully!")
+            
+            #? update config/cache
