@@ -21,6 +21,9 @@ import json
 
 #TODO
 # add language choice
+# split game download and game update
+# add a boolean to indicate if the game needs to be updated or not
+# add a way to check multiple games at once for updates
 
 class Hoyoverse:
     def __init__(self, game_id):
@@ -55,7 +58,6 @@ class Hoyoverse:
                 if branch["game"]["id"] == game_id:
                     base_game_version = branch["main"]["major"]["version"]
                     break
-
 
 
         # check if game directory exist
@@ -96,7 +98,7 @@ class Hoyoverse:
         # when no upgrade avalable
         if not self.has_upgrade:
             print(f"Downloading {game_name_short} {base_game_version}...")
-            SophonGameDownloader(
+            SophonDownloader(
                 game_id=game_id,
                 version=base_game_version,
                 output_dir=game_data_dir
@@ -105,7 +107,7 @@ class Hoyoverse:
 
             print("Downloading voice packs...")
             for voice_pack in CONFIG[game_name_config]["voice_packs"]:
-                SophonAudioDownloader(
+                SophonDownloader(
                     game_id=game_id,
                     package=voice_pack,
                     version=base_game_version,
@@ -118,7 +120,7 @@ class Hoyoverse:
         # when upgrade is available
         if self.has_upgrade:
             print(f"Updating {game_name_short} to {new_version}...")
-            SophonGameUpdater(
+            SophonDownloader(
                 game_id=game_id,
                 update_from=CONFIG[game_name_config]["version"],
                 update_to=new_version,
@@ -129,10 +131,11 @@ class Hoyoverse:
             # sophon update voice packs
             print("Updating voice packs...")
             for voice_pack in CONFIG[game_name_config]["voice_packs"]:
-                SophonAudioUpdater(
+                SophonDownloader(
                     game_id=game_id,
                     package=voice_pack,
-                    version=new_version,
+                    update_from=CONFIG[game_name_config]["version"],
+                    update_to=new_version,
                     output_dir=game_data_dir
                 )
             print("Voice packs updated successfully!")
