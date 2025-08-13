@@ -1,0 +1,127 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0/linux-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {},
+    ".NETCoreApp,Version=v9.0/linux-x64": {
+      "Sophon/1.6.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.30.0",
+          "Google.Protobuf.Tools": "3.30.0",
+          "Hi3Helper.ZstdNet": "1.6.4",
+          "Microsoft.NET.ILLink.Tasks": "9.0.8",
+          "SharpHDiffPatch.Core": "2.3.3",
+          "System.IO.Hashing": "9.0.8"
+        },
+        "runtime": {
+          "Sophon.dll": {}
+        }
+      },
+      "Google.Protobuf/3.30.0": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.30.0.0",
+            "fileVersion": "3.30.0.0"
+          }
+        }
+      },
+      "Google.Protobuf.Tools/3.30.0": {},
+      "Hi3Helper.ZstdNet/1.6.4": {
+        "runtime": {
+          "lib/net9.0/Hi3Helper.ZstdNet.dll": {
+            "assemblyVersion": "1.6.4.0",
+            "fileVersion": "1.6.4.0"
+          }
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/9.0.8": {},
+      "SharpHDiffPatch.Core/2.3.3": {
+        "dependencies": {
+          "Hi3Helper.ZstdNet": "1.6.4",
+          "ZstdSharp.Port": "0.8.5"
+        },
+        "runtime": {
+          "lib/net9.0/SharpHDiffPatch.Core.dll": {
+            "assemblyVersion": "2.3.3.0",
+            "fileVersion": "2.3.3.0"
+          }
+        }
+      },
+      "System.IO.Hashing/9.0.8": {
+        "runtime": {
+          "lib/net9.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "9.0.0.8",
+            "fileVersion": "9.0.825.36511"
+          }
+        }
+      },
+      "ZstdSharp.Port/0.8.5": {
+        "runtime": {
+          "lib/net9.0/ZstdSharp.dll": {
+            "assemblyVersion": "0.8.5.0",
+            "fileVersion": "0.8.5.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sophon/1.6.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.30.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZnEI4oZWnHvd+Yz5Gcnx5Q5RQIuzptIzd0fmxAN8f81FYHI0USZqMOrPTkrsd/QEzo9vl2b217v9FqFgHfufQw==",
+      "path": "google.protobuf/3.30.0",
+      "hashPath": "google.protobuf.3.30.0.nupkg.sha512"
+    },
+    "Google.Protobuf.Tools/3.30.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-x1oSZEg1oDgQjXQwLvXMBfdFh9/sNw8B0eOjM1DZxpYxsBoHy5Nk0qz7J0m7lJgOG/bolyCnc42DeBJYndRtwQ==",
+      "path": "google.protobuf.tools/3.30.0",
+      "hashPath": "google.protobuf.tools.3.30.0.nupkg.sha512"
+    },
+    "Hi3Helper.ZstdNet/1.6.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/0HO97NquyAeu67BznsPG3Bitb2RweDlRd39Dm0N70pIb6ETjsQI/ysnwGrygxrPwwE25oDNoueAaJfOZTrACg==",
+      "path": "hi3helper.zstdnet/1.6.4",
+      "hashPath": "hi3helper.zstdnet.1.6.4.nupkg.sha512"
+    },
+    "Microsoft.NET.ILLink.Tasks/9.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rd1CbIsMtVPtZNTIVD6Xydue//klYOOQIDpRgu3BHtv17AlpRs74/6QFbcYgMm/jL+naVU2T3OFLxVSLV5lQLQ==",
+      "path": "microsoft.net.illink.tasks/9.0.8",
+      "hashPath": "microsoft.net.illink.tasks.9.0.8.nupkg.sha512"
+    },
+    "SharpHDiffPatch.Core/2.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KQK+381J3Y2MjxwoG63vvPkDFReN03fp6tCVE6OCctZSgxXhQ0pXCpruX5xyhstx/I6yGPVBejmAyodaSK4tGQ==",
+      "path": "sharphdiffpatch.core/2.3.3",
+      "hashPath": "sharphdiffpatch.core.2.3.3.nupkg.sha512"
+    },
+    "System.IO.Hashing/9.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5TJUS9EIYrp0VEcm06EPYxXmLmsVUakewFnM/CAxQfvlasI9fGkTKM9afSf2dodZcMCzFna/o7Fn+gYRt3uTiA==",
+      "path": "system.io.hashing/9.0.8",
+      "hashPath": "system.io.hashing.9.0.8.nupkg.sha512"
+    },
+    "ZstdSharp.Port/0.8.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TR4j17WeVSEb3ncgL2NqlXEqcy04I+Kk9CaebNDplUeL8XOgjkZ7fP4Wg4grBdPLIqsV86p2QaXTkZoRMVOsew==",
+      "path": "zstdsharp.port/0.8.5",
+      "hashPath": "zstdsharp.port.0.8.5.nupkg.sha512"
+    }
+  }
+}
