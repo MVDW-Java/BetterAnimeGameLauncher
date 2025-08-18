@@ -1,25 +1,26 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v9.0",
+    "name": ".NETCoreApp,Version=v9.0/linux-x64",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v9.0": {
+    ".NETCoreApp,Version=v9.0": {},
+    ".NETCoreApp,Version=v9.0/linux-x64": {
       "Sophon.Downloader/1.1.0": {
         "dependencies": {
           "Mono.Options": "6.12.0.148",
-          "Sophon": "1.6.0"
+          "Sophon": "1.7.1"
         },
         "runtime": {
           "Sophon.Downloader.dll": {}
         }
       },
-      "Google.Protobuf/3.30.0": {
+      "Google.Protobuf/3.31.1": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
-            "assemblyVersion": "3.30.0.0",
-            "fileVersion": "3.30.0.0"
+            "assemblyVersion": "3.31.1.0",
+            "fileVersion": "3.31.1.0"
           }
         }
       },
@@ -51,11 +52,11 @@
           }
         }
       },
-      "System.IO.Hashing/9.0.7": {
+      "System.IO.Hashing/9.0.8": {
         "runtime": {
           "lib/net9.0/System.IO.Hashing.dll": {
-            "assemblyVersion": "9.0.0.7",
-            "fileVersion": "9.0.725.31616"
+            "assemblyVersion": "9.0.0.8",
+            "fileVersion": "9.0.825.36511"
           }
         }
       },
@@ -67,17 +68,17 @@
           }
         }
       },
-      "Sophon/1.6.0": {
+      "Sophon/1.7.1": {
         "dependencies": {
-          "Google.Protobuf": "3.30.0",
+          "Google.Protobuf": "3.31.1",
           "Hi3Helper.ZstdNet": "1.6.4",
           "SharpHDiffPatch.Core": "2.3.3",
-          "System.IO.Hashing": "9.0.7"
+          "System.IO.Hashing": "9.0.8"
         },
         "runtime": {
           "Sophon.dll": {
-            "assemblyVersion": "1.6.0.0",
-            "fileVersion": "1.6.0.0"
+            "assemblyVersion": "1.7.1",
+            "fileVersion": "1.7.1"
           }
         }
       }
@@ -89,12 +90,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Google.Protobuf/3.30.0": {
+    "Google.Protobuf/3.31.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZnEI4oZWnHvd+Yz5Gcnx5Q5RQIuzptIzd0fmxAN8f81FYHI0USZqMOrPTkrsd/QEzo9vl2b217v9FqFgHfufQw==",
-      "path": "google.protobuf/3.30.0",
-      "hashPath": "google.protobuf.3.30.0.nupkg.sha512"
+      "sha512": "sha512-gSnJbUmGiOTdWddPhqzrEscHq9Ls6sqRDPB9WptckyjTUyx70JOOAaDLkFff8gManZNN3hllQ4aQInnQyq/Z/A==",
+      "path": "google.protobuf/3.31.1",
+      "hashPath": "google.protobuf.3.31.1.nupkg.sha512"
     },
     "Hi3Helper.ZstdNet/1.6.4": {
       "type": "package",
@@ -117,12 +118,12 @@
       "path": "sharphdiffpatch.core/2.3.3",
       "hashPath": "sharphdiffpatch.core.2.3.3.nupkg.sha512"
     },
-    "System.IO.Hashing/9.0.7": {
+    "System.IO.Hashing/9.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2sMrwd/AHYipeiOwYcoqD99c4U8F2x7GalonEYxkHUvTLNzE9Pxx2lz8ygS9cOqyDsruYARZAYL5pPVFh/s3lw==",
-      "path": "system.io.hashing/9.0.7",
-      "hashPath": "system.io.hashing.9.0.7.nupkg.sha512"
+      "sha512": "sha512-5TJUS9EIYrp0VEcm06EPYxXmLmsVUakewFnM/CAxQfvlasI9fGkTKM9afSf2dodZcMCzFna/o7Fn+gYRt3uTiA==",
+      "path": "system.io.hashing/9.0.8",
+      "hashPath": "system.io.hashing.9.0.8.nupkg.sha512"
     },
     "ZstdSharp.Port/0.8.5": {
       "type": "package",
@@ -131,7 +132,7 @@
       "path": "zstdsharp.port/0.8.5",
       "hashPath": "zstdsharp.port.0.8.5.nupkg.sha512"
     },
-    "Sophon/1.6.0": {
+    "Sophon/1.7.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
